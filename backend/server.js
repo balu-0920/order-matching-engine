@@ -2,20 +2,34 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const session = require("express-session");
+const cors = require("cors");
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 /* ================= MIDDLEWARE ================= */
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cors({
+    origin: [
+        "https://order-matching-engine-flame.vercel.app",
+        "http://localhost:5000",
+        "http://localhost:3000"
+    ],
+    credentials: true
+}));
+app.set("trust proxy", 1);
 
 app.use(session({
     secret: "tradex-secret-key",
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 }
+    cookie: {
+        maxAge: 1000 * 60 * 60,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax"
+    }
 }));
 
 app.use(express.static(path.join(__dirname, "../frontend")));
