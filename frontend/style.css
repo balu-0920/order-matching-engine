@@ -1,0 +1,1070 @@
+/* ================= FONT ================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* ================= RESET ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* ================= COLOR VARIABLES ================= */
+
+:root {
+    --bg:        #0d1117;
+    --surface:   #161b22;
+    --surface-2: #1c2128;
+    --border:    #2d333b;
+
+    --primary:   #3b82f6;
+    --buy:       #10b981;
+    --sell:      #f43f5e;
+
+    --text:      #e6edf3;
+    --muted:     #8b949e;
+    --muted-text: #8b949e;
+
+    --radius: 12px;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    height: 64px;
+    padding: 0 24px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: 1px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-name {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.nav-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #60a5fa;
+}
+
+.logout-btn {
+    background: var(--sell);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+.logout-btn:hover {
+    opacity: 0.88;
+}
+
+/* ================= PRICE TICKER ================= */
+
+.price-ticker-wrapper {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.price-ticker {
+    display: flex;
+    animation: scroll-ticker 25s linear infinite;
+    width: 200%;
+    gap: 40px;
+}
+
+.price-ticker:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.ticker-scroll {
+    display: flex;
+    gap: 40px;
+    padding: 0 30px;
+    white-space: nowrap;
+}
+
+.ticker-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    font-size: 13px;
+    min-width: 180px;
+}
+
+.ticker-stock {
+    font-weight: 700;
+    color: var(--primary);
+    letter-spacing: 0.5px;
+}
+
+.ticker-price {
+    color: var(--text);
+    font-weight: 500;
+}
+
+/* ================= DASHBOARD BODY ================= */
+
+.dashboard-body {
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ================= DASHBOARD LAYOUT ================= */
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1fr;
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.left-panel,
+.center-panel,
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ================= CARD ================= */
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+}
+
+.card h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 10px;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+/* ================= BALANCE DISPLAY ================= */
+
+.balance {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--buy);
+    margin-top: 4px;
+    letter-spacing: -0.5px;
+}
+
+/* ================= PORTFOLIO OVERVIEW ================= */
+
+.pl-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+}
+
+.pl-stat:last-child {
+    border-bottom: none;
+}
+
+.pl-stat span:first-child {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.pl-stat span:last-child {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--primary);
+}
+
+/* ================= HOLDINGS ================= */
+
+.holding-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    border-left: 3px solid var(--primary);
+    padding-left: 12px;
+}
+
+.holding-item:last-child {
+    border-bottom: none;
+}
+
+.holding-left,
+.holding-right {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.holding-company {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 14px;
+}
+
+.holding-qty {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.holding-value {
+    font-weight: 700;
+    color: var(--buy);
+    font-size: 14px;
+}
+
+.holding-price {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* ================= WATCHLIST ================= */
+
+.watchlist-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.watchlist-price {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.remove-btn {
+    background: transparent;
+    border: none;
+    color: var(--sell);
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.remove-btn:hover {
+    color: #f87171;
+}
+
+/* ================= TABS ================= */
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.tab-btn {
+    padding: 10px 14px;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 13px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.tab-btn:hover {
+    color: var(--text);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ================= FORM ELEMENTS ================= */
+
+.card label {
+    display: block;
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.card input,
+.card select {
+    width: 100%;
+    padding: 11px 13px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    margin-bottom: 12px;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.card input:focus,
+.card select:focus {
+    border-color: var(--primary);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+/* ================= ORDER BUTTONS ================= */
+
+.order-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 14px;
+}
+
+.buy-btn,
+.sell-btn {
+    flex: 1;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: inherit;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.buy-btn {
+    background: var(--buy);
+}
+
+.buy-btn:hover {
+    background: #059669;
+    transform: translateY(-2px);
+}
+
+.buy-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.sell-btn {
+    background: var(--sell);
+}
+
+.sell-btn:hover {
+    background: #be185d;
+    transform: translateY(-2px);
+}
+
+.sell-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ================= PRICE CHART ================= */
+
+#priceChart {
+    max-height: 300px;
+    width: 100%;
+}
+
+canvas {
+    max-height: 300px;
+}
+
+/* ================= ORDER BOOK ================= */
+
+.orderbook-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.orderbook-box {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.green-text {
+    color: var(--buy);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.red-text {
+    color: var(--sell);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* ================= TABLES ================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+table th {
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    padding: 8px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+table td {
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+
+table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* ================= TRADE TABLE ================= */
+
+.trade-table {
+    width: 100%;
+    font-size: 11px;
+}
+
+.trade-table th {
+    background: var(--surface);
+    padding: 10px;
+    border-bottom: 2px solid var(--border);
+}
+
+.trade-table td {
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.buy-row {
+    border-left: 3px solid var(--buy);
+}
+
+.sell-row {
+    border-left: 3px solid var(--sell);
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.badge-buy {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--buy);
+}
+
+.badge-sell {
+    background: rgba(244, 63, 94, 0.2);
+    color: var(--sell);
+}
+
+/* ================= NOTIFICATIONS ================= */
+
+.notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 16px 20px;
+    border-radius: 8px;
+    color: var(--text);
+    z-index: 1000;
+    max-width: 350px;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.notification.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.notification.success {
+    border-left: 4px solid var(--buy);
+}
+
+.notification.error {
+    border-left: 4px solid var(--sell);
+}
+
+.notification.info {
+    border-left: 4px solid var(--primary);
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+}
+
+/* ================= PROFILE PAGE ================= */
+
+.profile-body {
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.profile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.profile-header {
+    margin-bottom: 40px;
+}
+
+.profile-header h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 20px;
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.stat-card h4 {
+    color: var(--muted);
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 10px 0;
+    letter-spacing: -0.5px;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.performance-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+}
+
+.perf-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.perf-item span:first-child {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.perf-item span:last-child {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-top: 5px;
+    letter-spacing: -0.5px;
+}
+
+.perf-arrow {
+    font-size: 24px;
+    color: var(--primary);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+/* ================= BUTTONS (GENERAL) ================= */
+
+.btn {
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: inherit;
+    transition: 0.15s ease;
+    display: inline-block;
+}
+
+.primary-btn {
+    background: var(--primary);
+    color: white;
+}
+
+.primary-btn:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.secondary-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* ================= HOME PAGE ================= */
+
+.home-body {
+    min-height: 100vh;
+    background: var(--bg);
+    background-image:
+        radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.12), transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.10), transparent 40%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.home-container {
+    width: 100%;
+    max-width: 560px;
+}
+
+.hero-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 56px 48px;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.hero-card h1 {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -1px;
+}
+
+.hero-card h1::before {
+    content: "📈 ";
+}
+
+.hero-card .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 36px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+}
+
+.hero-buttons .btn {
+    flex: 1;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .hero-card {
+        padding: 40px 28px;
+    }
+
+    .hero-card h1 {
+        font-size: 30px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+}
+
+/* ================= AUTH PAGES ================= */
+
+.auth-body {
+    min-height: 100vh;
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+.auth-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.auth-card h2 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 28px;
+    color: var(--text);
+    text-align: center;
+}
+
+.auth-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.auth-card label {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.auth-card input {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: 0.2s ease;
+}
+
+.auth-card input:focus {
+    border-color: var(--primary);
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.bottom-text {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+.bottom-text a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.bottom-text a:hover {
+    text-decoration: underline;
+}
+
+.back-link {
+    text-align: center;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 20px;
+    font-weight: 500;
+}
+
+/* ================= RESPONSIVE DESIGN ================= */
+
+@media (max-width: 1400px) {
+    .dashboard-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .right-panel {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 900px) {
+    .dashboard-container {
+        grid-template-columns: 1fr;
+    }
+
+    .left-panel,
+    .center-panel,
+    .right-panel {
+        grid-column: 1 / -1;
+    }
+
+    .orderbook-container {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .performance-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .navbar {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .nav-right {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard-body {
+        padding: 10px;
+    }
+
+    .dashboard-container {
+        gap: 12px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .card h3 {
+        font-size: 13px;
+    }
+
+    .order-buttons {
+        flex-direction: column;
+    }
+
+    .buy-btn,
+    .sell-btn {
+        flex: 1 !important;
+    }
+
+    .navbar {
+        padding: 0 12px;
+        height: 56px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .nav-right {
+        gap: 10px;
+    }
+
+    .user-name {
+        display: none;
+    }
+
+    .price-ticker-wrapper {
+        height: 40px;
+        padding: 0 5px;
+    }
+
+    .ticker-item {
+        min-width: 120px;
+        font-size: 11px;
+    }
+
+    .ticker-scroll {
+        gap: 20px;
+        padding: 0 15px;
+    }
+
+    table {
+        font-size: 10px;
+    }
+
+    table th,
+    table td {
+        padding: 6px 4px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-value {
+        font-size: 18px;
+    }
+
+    .tabs {
+        flex-wrap: wrap;
+    }
+
+    .tab-btn {
+        flex: 1;
+        text-align: center;
+        padding: 8px 5px;
+        font-size: 12px;
+    }
+
+    .balance {
+        font-size: 26px;
+    }
+
+    .profile-header h1 {
+        font-size: 24px;
+    }
+}
+
+/* ================= UTILITY CLASSES ================= */
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.p-10 {
+    padding: 10px;
+}
+
+.hidden {
+    display: none !important;
+}

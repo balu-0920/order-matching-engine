@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile — TradeX</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="profile-body">
+    <nav class="navbar">
+        <div class="logo">TradeX</div>
+        <div class="nav-right">
+            <a href="/dashboard" class="nav-link">Dashboard</a>
+            <form action="/logout" method="POST" style="margin:0">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+    </nav>
+    <div class="profile-container">
+        <div class="card">
+            <h3>Account Summary</h3>
+            <div class="stat-grid" id="stat-grid">
+                <div class="stat-card"><div class="stat-label">Portfolio Value</div><div class="stat-value" id="pv">—</div></div>
+                <div class="stat-card"><div class="stat-label">Total P&amp;L</div><div class="stat-value" id="pnl">—</div></div>
+                <div class="stat-card"><div class="stat-label">Cash Balance</div><div class="stat-value" id="bal">—</div></div>
+                <div class="stat-card"><div class="stat-label">Total Trades</div><div class="stat-value" id="tt">—</div></div>
+                <div class="stat-card"><div class="stat-label">Buy Orders</div><div class="stat-value" id="bt">—</div></div>
+                <div class="stat-card"><div class="stat-label">Sell Orders</div><div class="stat-value" id="st">—</div></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const fmt = n => "₹" + Number(n).toLocaleString("en-IN");
+        fetch("/api/profile").then(r => r.json()).then(d => {
+            document.getElementById("pv").textContent  = fmt(d.portfolioValue);
+            const pnlEl = document.getElementById("pnl");
+            pnlEl.textContent = (d.totalPnl >= 0 ? "+" : "") + fmt(d.totalPnl);
+            pnlEl.style.color = d.totalPnl >= 0 ? "#22c55e" : "#ef4444";
+            document.getElementById("bal").textContent = fmt(d.balance);
+            document.getElementById("tt").textContent  = d.totalTrades;
+            document.getElementById("bt").textContent  = d.buyTrades;
+            document.getElementById("st").textContent  = d.sellTrades;
+        });
+    </script>
+</body>
+</html>

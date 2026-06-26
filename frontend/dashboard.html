@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — TradeX</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- ✅ Chart.js - BEFORE app.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+</head>
+
+<body class="dashboard-body">
+
+    <nav class="navbar">
+        <div class="logo">TradeX</div>
+        <div class="nav-right">
+            <span class="user-name" id="welcome-text">Welcome...</span>
+            <a href="/profile" class="nav-link">Profile</a>
+            <form action="/logout" method="POST" style="margin:0">
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- PRICE TICKER -->
+    <div class="price-ticker-wrapper">
+        <div id="price-ticker" class="price-ticker"></div>
+    </div>
+
+    <div class="dashboard-container">
+
+        <!-- LEFT PANEL -->
+        <div class="left-panel">
+
+            <!-- Wallet -->
+            <div class="card">
+                <h3>💰 Wallet Balance</h3>
+                <h1 class="balance" id="balance-display">Loading...</h1>
+            </div>
+
+            <!-- Portfolio P&L -->
+            <div class="card">
+                <h3>📊 Portfolio Overview</h3>
+                <div id="portfolio-pl">
+                    <p style="color:var(--muted-text)">Loading...</p>
+                </div>
+            </div>
+
+            <!-- Holdings -->
+            <div class="card">
+                <h3>📈 Your Holdings</h3>
+                <div id="holdings-container">
+                    <p style="color:var(--muted-text)">Loading holdings...</p>
+                </div>
+            </div>
+
+            <!-- Place Order -->
+            <div class="card">
+                <h3>📋 Place Order</h3>
+                
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('limit')">Limit Order</button>
+                    <button class="tab-btn" onclick="switchTab('market')">Market Order</button>
+                </div>
+
+                <!-- Limit Order Tab -->
+                <div id="limit-tab" class="tab-content active">
+                    <div style="display:flex;flex-direction:column;gap:15px">
+                        <label>Company</label>
+                        <select id="company-select">
+                            <option>TCS</option>
+                            <option>INFY</option>
+                            <option>RELIANCE</option>
+                            <option>APPLE</option>
+                            <option>HDFC</option>
+                            <option>WIPRO</option>
+                            <option>SBI</option>
+                            <option>MARUTI</option>
+                            <option>BAJAJ</option>
+                            <option>TITAN</option>
+                        </select>
+
+                        <label>Quantity</label>
+                        <input type="number" id="quantity-input" placeholder="Enter Quantity" min="1">
+
+                        <label>Price (₹)</label>
+                        <input type="number" id="price-input" placeholder="Enter price" min="1" step="0.01">
+
+                        <div class="order-buttons">
+                            <button class="buy-btn" id="buy-btn">Buy</button>
+                            <button class="sell-btn" id="sell-btn">Sell</button>
+                        </div>
+
+                        <div id="order-status" style="font-size:14px;min-height:20px;color:#94a3b8"></div>
+                    </div>
+                </div>
+
+                <!-- Market Order Tab -->
+                <div id="market-tab" class="tab-content">
+                    <div style="display:flex;flex-direction:column;gap:15px">
+                        <label>Company</label>
+                        <select id="market-company" onchange="updateMarketPrice(this.value)">
+                            <option>TCS</option>
+                            <option>INFY</option>
+                            <option>RELIANCE</option>
+                            <option>APPLE</option>
+                            <option>HDFC</option>
+                            <option>WIPRO</option>
+                            <option>SBI</option>
+                            <option>MARUTI</option>
+                            <option>BAJAJ</option>
+                            <option>TITAN</option>
+                        </select>
+
+                        <label>Current Market Price: <strong id="current-market-price">-</strong></label>
+
+                        <label>Quantity</label>
+                        <input type="number" id="market-quantity" placeholder="Enter Quantity" min="1">
+
+                        <p style="color:#cbd5e1;font-size:13px">Market orders execute immediately at the best available price</p>
+
+                        <div class="order-buttons">
+                            <button class="buy-btn" id="market-buy-btn">Market Buy</button>
+                            <button class="sell-btn" id="market-sell-btn">Market Sell</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CENTER PANEL -->
+        <div class="center-panel">
+
+            <!-- Price Chart -->
+            <div class="card full-width">
+                <h3>📉 Price Chart - <span id="chart-stock">TCS</span></h3>
+                <canvas id="priceChart" height="300" style="max-height: 300px;"></canvas>
+            </div>
+
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="right-panel">
+
+            <!-- Order Book -->
+            <div class="card">
+                <h3>📊 Order Book</h3>
+
+                <div class="orderbook-container">
+
+                    <div class="orderbook-box">
+                        <h4 class="green-text">Buy Orders</h4>
+                        <table>
+                            <tr>
+                                <th>Company</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                            </tr>
+                            <tbody id="buy-orders-body"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="orderbook-box">
+                        <h4 class="red-text">Sell Orders</h4>
+                        <table>
+                            <tr>
+                                <th>Company</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                            </tr>
+                            <tbody id="sell-orders-body"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- My Pending Orders -->
+            <div class="card">
+                <h3>⏳ My Pending Orders</h3>
+                <table style="width: 100%; font-size: 12px;">
+                    <tr>
+                        <th>Stock</th>
+                        <th>Type</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                    </tr>
+                    <tbody id="my-pending-orders">
+                        <tr><td colspan="4" style="color: var(--muted-text);">No pending orders</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Trade History -->
+            <div class="card">
+                <h3>📝 Trade History</h3>
+                <div id="trade-history-container" style="font-size: 12px; max-height: 300px; overflow-y: auto;">
+                    <p style="color:var(--muted-text)">Loading trades...</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function updateMarketPrice(company) {
+            const priceEl = document.getElementById('current-market-price');
+            fetch('/api/stocks')
+                .then(r => r.json())
+                .then(stocks => {
+                    const price = stocks[company];
+                    priceEl.textContent = '₹' + (price || '-').toLocaleString('en-IN');
+                })
+                .catch(err => console.error('Error fetching prices:', err));
+        }
+
+        // Initialize market price on load
+        setTimeout(() => updateMarketPrice('TCS'), 500);
+    </script>
+
+    <!-- ✅ app.js AFTER Chart.js -->
+    <script src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — TradeX</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>Login</h2>
+            <form action="/login-user" method="POST">
+                <label>User ID</label>
+                <input
+                    type="number"
+                    name="userid"
+                    placeholder="Enter User ID"
+                    required
+                >
+                <label>Password</label>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter Password"
+                    required
+                >
+                <button type="submit" class="btn primary-btn">Login</button>
+            </form>
+            <p class="bottom-text">
+                Don't have an account?
+                <a href="/register">Register</a>
+            </p>
+            <a href="/" class="back-link">← Back To Home</a>
+        </div>
+    </div>
+</body>
+</html>
