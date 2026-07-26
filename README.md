@@ -195,23 +195,6 @@ server.js syncs txt file results back to MongoDB:
 
 ---
 
-## Stocks Available
-
-| Symbol | Company | Base Price |
-|---|---|---|
-| TCS | Tata Consultancy Services | ₹3,500 |
-| INFY | Infosys | ₹1,450 |
-| RELIANCE | Reliance Industries | ₹2,800 |
-| HDFC | HDFC Bank | ₹2,100 |
-| WIPRO | Wipro | ₹580 |
-| SBI | State Bank of India | ₹590 |
-| MARUTI | Maruti Suzuki | ₹9,200 |
-| BAJAJ | Bajaj Finance | ₹4,500 |
-| TITAN | Titan Company | ₹3,200 |
-| APPLE | Apple Inc | ₹7,000 |
-
----
-
 ## .gitignore
 
 Add this `.gitignore` to avoid committing unnecessary files:
